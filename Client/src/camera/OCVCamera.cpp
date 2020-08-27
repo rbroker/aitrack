@@ -61,9 +61,8 @@ void OCVCamera::get_frame(uint8_t* buffer)
 	//cv::resize(frame, frame, size, w_scale, w_scale);
 	cv::resize(frame, frame, size, w_scale, w_scale);
 	cv::flip(frame, frame, 1);
-	for (int i = 0; i < frame.cols * frame.rows * 3; i++)
-		buffer[i] = frame.data[i];
 
+	::memcpy(buffer, frame.data, frame.cols * frame.rows * 3);
 }
 
 void OCVCamera::set_settings(CameraSettings& settings)
